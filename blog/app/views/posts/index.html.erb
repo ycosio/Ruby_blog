@@ -1,0 +1,26 @@
+<h1>Posts</h1>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>Title</th>
+    <th>post id</th>
+    <th>Content</th>
+  </tr>
+
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= post.id %></td>
+      <td><%= post.title %></td>
+      <td><%= post.user_id %></td>
+      <td><%= post.content %></td>
+      <td><%= link_to 'Show', post_path(post)%>
+     <td><%= link_to 'Edit', edit_post_path(post) %>
+    </tr>
+  <% end %>
+</table>
+
+<% if user_signed_in? %>
+  <br><%= link_to 'New', new_post_path %>
+<% end %>
+
