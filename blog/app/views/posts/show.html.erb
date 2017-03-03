@@ -13,4 +13,27 @@
   <%= @post.content %>
 </p>
 
+<h2>Comments:</h2>
+<% @post.comments.each do |comment| %>
+  <p>
+    <strong><%= comment.user.name %></strong>
+  </p>
+
+  <p>
+    <%= comment.content %>
+  </p>
+<% end %>
+
+<h2>Add comment:</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Back', posts_path %>
