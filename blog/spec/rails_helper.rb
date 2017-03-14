@@ -8,6 +8,10 @@ require 'rspec/rails'
 require 'shoulda-matchers'
 require 'support/factory_girl'
 require 'devise'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'database_cleaner'
+require 'helpers/session'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -30,6 +34,7 @@ require 'devise'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+
 Shoulda::Matchers.configure do |config|
     config.integrate do |with|
      #choose a test framework:
@@ -49,6 +54,19 @@ end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  config.include Session
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, :type => type

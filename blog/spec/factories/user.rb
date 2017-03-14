@@ -3,7 +3,7 @@ require 'support/factory_girl.rb'
 FactoryGirl.define do
 
   factory :user, class: User do
-    email "user@name.com"
+    email "user@gmail.com"
     password "111111"
     password_confirmation "111111"
   end
