@@ -57,16 +57,16 @@ RSpec.configure do |config|
 
   config.include Session
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
+  #config.before(:suite) do
+    #DatabaseCleaner.strategy = :transaction
+    #DatabaseCleaner.clean_with(:truncation)
+  #end
 
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
+  #config.around(:each) do |example|
+    #DatabaseCleaner.cleaning do
+      #example.run
+    #end
+  #end
 
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, :type => type

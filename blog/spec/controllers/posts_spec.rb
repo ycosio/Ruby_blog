@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe PostsController, type: :controller do
 
   context "user authenticate" do
+    #before(:each) do
+     #@user = create(:user)
+    #end
+
     let(:user) { create(:user) }
 
     let(:wrong_user) { build(:wrong_user) }
@@ -11,15 +15,15 @@ RSpec.describe PostsController, type: :controller do
       should use_before_action(:authenticate_user!)
     end
 
-    it "should have a authenticate user" do
-      if User.find_by(email: wrong_user.email) and User.last.password_valid? '111111'
+    it "should not have a authenticate user" do
+      if User.find_by(email: wrong_user.email) and User.last.valid_password? '111111'
         sign_in(wrong_user)
       end
       should_not set_session
     end
 
-    it "should not have a authenticate user" do
-      if User.find_by(email: user.email)
+    it "should have a authenticate user" do
+      if User.find_by(email: user.email) and User.last.valid_password? '111111'
         sign_in(user)
       end
       should set_session

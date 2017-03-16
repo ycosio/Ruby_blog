@@ -16,12 +16,40 @@
 <h2>Comments:</h2>
 <% @post.comments.each do |comment| %>
   <p>
-    <strong><%= comment.user.name %></strong>
+    <strong><%= comment.user.id %></strong>
   </p>
 
   <p>
     <%= comment.content %>
   </p>
+  <br>
+
+<%= form_for([comment, comment.comments.create]) do |f| %>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+  <% end %>
+
+  <% comment.comments.each do |replay| %>
+    <p>
+      <strong><%= replay.user%></strong>
+    </p>
+
+    <p>
+      <%= replay.content %>
+    </p>
+  <% end %>
+
+
+
+  <br>
+
+
 <% end %>
 
 <h2>Add comment:</h2>

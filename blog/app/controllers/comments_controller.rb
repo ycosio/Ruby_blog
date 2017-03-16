@@ -1,14 +1,16 @@
 class CommentsController < ApplicationController
 
   before_action :authenticate_user! , except: [:index, :show]
-  before_action :set_post
+  #before_action :set_post
 
   def index
     @comments = comment.all
   end
 
   def create
-   @comment = current_user.comments.build(comment_params)
+    commentable = context
+   @comment = commentable.comments.build(comment_params)
+    @comment.user = current_user
    @comment.post = @post
    @comment.save
    redirect_to @post
@@ -38,6 +40,18 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:content)
     end
+
+    def context
+      if params[:comment_id]
+        com = Comment.find(params[:comment_id])
+        @post = Post.find(com.post_id)
+        com
+      else
+        @post =  Post.find(params[:post_id])
+        @post
+      end
+    end
+
   def set_post
     @post = Post.find(params[:post_id])
   end
