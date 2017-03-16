@@ -1,0 +1,64 @@
+<p>
+  <strong>User id:</strong>
+  <%= @post.user_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<h2>Add comment:</h2>
+<%= form_for([@post, Comment.new]) do |f| %>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<br>
+
+<% @post.comments.each do |comment| %>
+  <p>
+    <strong><%= comment.user.email %></strong>
+  </p>
+
+  <p>
+    <%= comment.content %>
+  </p>
+  <br>
+
+  <h3>Replies:</h3>
+    <%= form_for([comment, Comment.new]) do |f| %> <p>
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+    </p>
+
+    <p>
+      <%= f.submit 'Reply' %>
+    </p>
+  <% end %>
+
+  <% comment.comments.each do |reply| %>
+    <p>
+      <strong><%= reply.user.email %></strong>
+    </p>
+
+    <p>
+      <%= reply.content %>
+    </p>
+  <% end %>
+
+  <br>
+
+<% end %>
+
+<%= link_to 'Back', posts_path %>
