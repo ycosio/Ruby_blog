@@ -4318,3 +4318,14 @@ Processing by PostsController#show as HTML
 Completed 200 OK in 258ms (Views: 244.2ms | ActiveRecord: 1.1ms)
 
 
+Started GET "/" for 127.0.0.1 at 2017-03-17 17:16:09 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PostsController#index as HTML
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered posts/index.html.erb within layouts/application (260.3ms)
+Completed 200 OK in 1671ms (Views: 1627.4ms | ActiveRecord: 3.0ms)
+
+
